@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+		
+		<!-- 作为客户端存在，只有授权通过之后才能访问
+ 		<import resource="classpath:spring/shiro-client-rest.xml"/>-->
+ 		  
+ 		<!-- 作为服务端存在，可以自行认证，验证通过之后返回sessionId 
+ 		<import resource="classpath:spring/shiro-server-rest.xml"/> -->
+ 		
+ 		<!-- 作为客户端存在，只有授权通过之后才能访问-->
+ 		<import resource="classpath:spring/shiro-client.xml"/>
+</beans>

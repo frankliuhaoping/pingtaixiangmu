@@ -1,0 +1,76 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+
+	<!-- 配置要扫描的包，根据具体项目修改 -->
+	<!-- 统一异常捕获 -->
+	<bean id="commonExceptionResolver" class="com.htcf.frame.web.exception.CommonExceptionResolver" />
+
+	<!-- 开启swagger <context:component-scan base-package="springfox"/> -->
+
+	<context:component-scan base-package="springfox" />
+	<context:component-scan base-package="com.htcf.frame.web" />
+	<context:component-scan base-package="com.htcf.system" />
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+	<mvc:cors>
+			<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="*" allowed-headers="*"/>
+		</mvc:cors>
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+			</bean>
+			
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 静态资源映射 -->
+	<mvc:resources mapping="/common/**" location="/common/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+
+	<!-- 开启swagger -->
+	<mvc:resources location="classpath:/META-INF/resources/"
+		mapping="swagger-ui.html" />
+	<mvc:resources location="classpath:/META-INF/resources/webjars/"
+		mapping="/webjars/**" />
+
+
+
+	<!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<aop:config proxy-target-class="true"></aop:config>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+</beans>

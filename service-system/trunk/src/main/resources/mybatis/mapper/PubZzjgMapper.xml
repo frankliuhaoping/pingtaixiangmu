@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.PubZzjgDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.po.PubZzjg"> <!-- 查询对象 -->
+		select t.*
+		from T_PUB_ZZJG t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from T_PUB_ZZJG t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="getSeq" resultType="java.lang.Long"> <!-- 获取序列 -->
+		select SEQ_PUB_ZZJG.nextval from dual
+	</select>
+	
+	<insert id="add"> <!-- 新增 -->
+		insert into T_PUB_ZZJG 
+		<include refid="common.insert"></include>
+	</insert>
+
+	<update id="update"> <!-- 修改 -->
+		update T_PUB_ZZJG set
+		<include refid="common.update"></include>
+	</update>
+	
+	<delete id="delete"> <!-- 删除 -->
+		delete from T_PUB_ZZJG 
+		where DWDM = #{0}
+	</delete>
+	
+	<delete id="batchDelete"> <!-- 批量删除 -->
+		delete from T_PUB_ZZJG 
+		where DWDM in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 基础方法 end -->
+	<!-- 批量新增 -->
+	<insert id="insertBatch"  parameterType="java.util.List">
+		insert into T_PUB_ZZJG(DWDM,JHDWDM,GXDWDM,DWMC,DWJC,DWJB,DWJBMS,DWDZ,CJSJ,GXSJ)
+			 <foreach open="(" close=")" collection="list" item="item" index="index" separator="union all"  > 
+    	 	 select  
+				#{item.dwdm,jdbcType=VARCHAR},
+				#{item.jhdwdm,jdbcType=VARCHAR},
+				#{item.gxdwdm,jdbcType=VARCHAR},
+				#{item.dwmc,jdbcType=VARCHAR},
+				#{item.dwjc,jdbcType=VARCHAR},
+				#{item.dwjb,jdbcType=VARCHAR},
+				#{item.dwjbms,jdbcType=VARCHAR},
+				#{item.dwdz,jdbcType=VARCHAR},
+				sysdate,sysdate
+     		 from dual
+    		</foreach>
+		</insert>
+	<!-- 批量修改 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach open="begin" close=";end;" collection="list" item="item" index="index" separator=";"> 
+            update T_PUB_ZZJG
+            <set>
+            <if test="item.dwdm!=null and item.dwdm!=''">
+                DWDM = #{item.dwdm},
+            </if>
+            <if test="item.jhdwdm!=null and item.jhdwdm!=''">
+                JHDWDM = #{item.jhdwdm},
+            </if>
+            <if test="item.gxdwdm!=null and item.gxdwdm!=''">
+                GXDWDM = #{item.gxdwdm},
+            </if>
+             <if test="item.dwmc!=null and item.dwmc!=''">
+                DWMC = #{item.dwmc},
+            </if>
+             <if test="item.dwjc!=null and item.dwjc!=''">
+                DWJC = #{item.dwjc},
+            </if>
+             <if test="item.dwjb!=null and item.dwjb!=''">
+                DWJB = #{item.dwjb},
+            </if>
+             <if test="item.dwjbms!=null and item.dwjbms!=''">
+                DWJBMS = #{item.dwjbms},
+            </if>
+            <if test="item.dwdz!=null and item.dwdz!=''">
+                DWDZ = #{item.dwdz},
+            </if>
+             	GXSJ=sysdate
+            </set>
+          	  where DWDM = #{item.dwdm}
+            </foreach>
+    </update>
+</mapper>

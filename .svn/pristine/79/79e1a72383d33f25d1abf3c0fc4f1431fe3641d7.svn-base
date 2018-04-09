@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.PubUserDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.po.PubUser"> <!-- 查询对象 -->
+		select t.*
+		from T_PUB_USER t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from T_PUB_USER t
+		where 1=1
+		<where>
+			<if test="ssdwdm != null and ssdwdm != ''">and t.ssdwdm like '${ssdwdm}%'</if>
+		</where>
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="getSeq" resultType="java.lang.Long"> <!-- 获取序列 -->
+		select SEQ_PUB_USER.nextval from dual
+	</select>
+	
+	<insert id="add" useGeneratedKeys="true" keyProperty="id"> <!-- 新增 -->
+		insert into T_PUB_USER 
+		<include refid="common.insert"></include>
+	</insert>
+
+	<update id="update"> <!-- 修改 -->
+		update T_PUB_USER set
+		<include refid="common.update"></include>
+	</update>
+	
+	<delete id="delete"> <!-- 删除 -->
+		delete from T_PUB_USER 
+		where YHBH = #{0}
+	</delete>
+	
+	<delete id="batchDelete"> <!-- 批量删除 -->
+		delete from T_PUB_USER 
+		where YHBH in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 基础方法 end -->
+	<select id="getBo" resultType="com.htcf.system.model.bo.PubUserBo" parameterType="java.util.Map"> <!-- 查询对象 -->
+		select 
+		<if test="yes_no == null or yes_no =='' or yes_no == 1">
+			B.JSID,
+		</if>
+		T.* from T_PUB_USER T 
+		<if test="yes_no == null or yes_no =='' or yes_no == 1">
+			left join 
+			(select * from T_PUB_AUTH a 
+			<where> 
+				<if test="jsid != null and jsid != ''">
+					<if test="yes_no == null or yes_no ==''">
+						AND a.JSID = #{jsid}
+					</if>
+					<if test="yes_no != null">
+						<if test="yes_no == 1">
+							AND a.JSID = #{jsid}
+						</if>
+						<if test="yes_no == 2">
+							AND a.JSID != #{jsid}
+						</if>
+					</if>
+				</if>
+			</where>
+			) B
+			on T.YHBH = B.yhbh
+		</if>
+		<where> 
+			1=1
+			<if test="yhmc != null and yhmc != ''">
+				AND T.yhmc like '%${yhmc}%'
+			</if>
+			<if test="ssdwdm != null and ssdwdm != ''">
+				AND T.ssdwdm like '${ssdwdm}%'
+			</if>
+			<if test="jsid != null and jsid != ''">
+				<if test="yes_no != null and yes_no == 1">
+					AND B.JSID = #{jsid}
+				</if>
+				<if test="yes_no != null and yes_no == 2">
+					AND T.YHBH not in(select a.YHBH from T_PUB_AUTH a where a.JSID =#{jsid})
+				</if>
+			</if>
+		</where>
+	</select>
+</mapper>

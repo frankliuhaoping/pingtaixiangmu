@@ -1,0 +1,40 @@
+
+#jdbc.url = jdbc:oracle:thin:@192.168.0.2:1521:cf110
+#jdbc.driverClass = oracle.jdbc.driver.OracleDriver
+
+#jdbc.user = HCZZ
+#jdbc.password = HCZZ
+
+## validationQuery
+#jdbc.pool.validationQuery = SELECT 'x' from DUAL
+
+#jdbc.driverClass=net.sf.log4jdbc.DriverSpy
+#jdbc.url=jdbc:log4jdbc:mysql://139.129.96.254:3306/test?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+
+#jdbc.driverClass = com.mysql.jdbc.Driver
+#jdbc.url = jdbc:mysql://139.129.96.254:3306/test?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+#jdbc.user = root
+#jdbc.password = 
+#jdbc.pool.validationQuery=select current_timestamp()
+
+#jdbc.driverClass=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#jdbc.url=jdbc:log4jdbc:oracle:thin:@118.178.87.225:1521:xe
+#jdbc.user = HTCF
+#jdbc.password = HTCF
+
+#jdbc.driverClass=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#jdbc.url=jdbc:log4jdbc:oracle:thin:@192.168.0.2:1521:cf110
+#jdbc.user = demo
+#jdbc.password = demo
+
+jdbc.driverClass=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+jdbc.url=jdbc:log4jdbc:oracle:thin:@192.168.0.2:1521:cf110
+jdbc.user = dgga110
+jdbc.password = 110110
+
+################# 东莞测试库 #########################
+#jdbc.driverClass=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#jdbc.url=jdbc:log4jdbc:oracle:thin:@192.168.107.3:1521:orcl
+#jdbc.user = dgga110
+#jdbc.password = 110110
+jdbc.pool.validationQuery = SELECT 'x' from DUAL

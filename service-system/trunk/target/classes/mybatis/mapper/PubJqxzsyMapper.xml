@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.PubJqxzsyDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.po.PubJqxzsy"> <!-- 查询对象 -->
+		select t.*
+		from T_PUB_JQXZSY t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from T_PUB_JQXZSY t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+
+	<insert id="add"> <!-- 新增 -->
+		insert into T_PUB_JQXZSY 
+		<include refid="common.insert"></include>
+	</insert>
+
+	<update id="update"> <!-- 修改 -->
+		update T_PUB_JQXZSY set
+		<include refid="common.update"></include>
+	</update>
+	
+	<delete id="delete"> <!-- 删除 -->
+		delete from T_PUB_JQXZSY 
+		where JQXZSYID = #{0}
+	</delete>
+	
+	<delete id="batchDelete"> <!-- 批量删除 -->
+		delete from T_PUB_JQXZSY 
+		where JQXZSYID in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 基础方法 end -->
+	<select id="queryJqxzBhByZdbh"  resultType="string">
+		select jqxzbh from T_PUB_JQXZSY 
+		where zdbh =#{zdbh}
+	</select>
+	
+	<delete id="deleteByZdbh">
+		delete from T_PUB_JQXZSY 
+		where zdbh = #{zdbh}
+	</delete>
+	
+	<select id="getPubJqxzByZdbh"  resultType="com.htcf.system.model.bo.PubJqxzdmBo">
+		select t2.* from T_PUB_JQXZSY t1
+ 		LEFT JOIN T_PUB_JQXZDM t2 ON t1.JQXZBH=t2.BZJQXZBH
+ 		WHERE t1.ZDBH= #{zdbh}
+	</select>
+	
+	<select id="getPubJqxzdm" resultType="com.htcf.system.model.po.PubJqxzdm" >
+		select t2.* from T_PUB_JQXZSY t
+ 		LEFT JOIN T_PUB_JQXZDM t2 ON t.JQXZBH=t2.BZJQXZBH
+ 		WHERE 1=1
+		<include refid="common.where"></include>
+	</select>
+</mapper>

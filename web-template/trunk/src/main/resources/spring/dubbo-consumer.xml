@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="web-template" />
+
+	<!-- 使用zookeeper注册中心接收服务地址 -->
+	<!-- 注册中心地址 -->	
+	<!-- <dubbo:registry protocol="zookeeper" address="localhost:2181" /> -->
+	<dubbo:registry address="N/A" /><!-- 直连 -->
+	<!-- 监控中心配置，protocol="registry"，表示从注册中心发现监控中心地址 -->
+	<!-- <dubbo:monitor protocol="registry"/> -->
+
+	<!-- 根据需要添加多个consumer -->
+	<!-- 公共的服务，必须引用 -->
+	<dubbo:reference interface="com.htcf.system.service.SessionService" id="sessionService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818"/>
+    <dubbo:reference interface="com.htcf.system.service.PubAppService" id="pubAppService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818" />
+    <dubbo:reference interface="com.htcf.system.service.PubResService" id="pubResService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818" />
+    <!-- 用户 -->
+    <dubbo:reference interface="com.htcf.system.service.PubUserService" id="pubUserService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818" />
+    <!-- 文件 -->
+    <dubbo:reference interface="com.htcf.system.service.PubFileService" id="pubFileService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818"/>
+	<!-- 全局参数 -->
+    <dubbo:reference interface="com.htcf.system.service.PubParamService" id="pubParamService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818"/>
+	<dubbo:reference interface="com.htcf.system.service.PubLogService" id="pubLogService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818">
+		<!--记录系统日志 异步调用-->
+		<dubbo:method name="addLog" async="true" />  
+    </dubbo:reference>
+    <!-- 字典 -->
+	<dubbo:reference interface="com.htcf.system.service.PubXtzdService" id="pubXtzdService" check="false" retries="0" timeout="60000" url="dubbo://192.168.0.91:20818"/>
+	
+
+    <dubbo:reference interface="com.htcf.template.service.XXXObjectService" id="xXXObjectService" check="false" retries="0" timeout="60000" url="dubbo://127.0.0.1:20818"/>   
+	
+
+    
+</beans>

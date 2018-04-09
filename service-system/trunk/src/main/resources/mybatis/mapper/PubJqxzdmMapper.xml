@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.PubJqxzdmDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.po.PubJqxzdm"> <!-- 查询对象 -->
+		select t.*
+		from T_PUB_JQXZDM t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from T_PUB_JQXZDM t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+
+	<select id="getSeq" resultType="java.lang.Long"> <!-- 获取序列 -->
+		select SEQ_PUB_JQXZDM.nextval from dual
+	</select>
+
+	<insert id="add"> <!-- 新增 -->
+		insert into T_PUB_JQXZDM
+		<include refid="common.insert"></include>
+	</insert>
+
+	<update id="update"> <!-- 修改 -->
+		update T_PUB_JQXZDM set
+		<include refid="common.update"></include>
+	</update>
+
+	<delete id="delete"> <!-- 删除 -->
+		delete from T_PUB_JQXZDM
+		where JQXZBH = #{0}
+	</delete>
+
+	<delete id="batchDelete"> <!-- 批量删除 -->
+		delete from T_PUB_JQXZDM
+		where JQXZBH in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 基础方法 end -->
+
+	<!-- 获取树形结构 警情性质数据 -->
+	<select id="getNodesJqxzByJqxzbh" parameterType="java.util.Map"
+		resultType="com.htcf.system.model.po.PubJqxzdm"> <!-- 查询对象 -->
+		select t.jqxzbh,t.jqxzjc,t.bzjqxzbh,t.bzjqxzmc,t.sybz
+		from T_PUB_JQXZDM
+		t
+		<where>
+			<include refid="jqxzContain" />
+		</where>
+		order by t.jqxzbh
+	</select>
+
+	<!-- 警情性质查询条件 -->
+	<sql id="jqxzContain">
+		<if test="len != null and len != ''">and length(jqxzbh) = #{len}</if>
+		<if test="jqxzbh != null and jqxzbh != ''">and jqxzbh like '${jqxzbh}%'</if>
+	</sql>
+
+
+	<!-- 警情性质是否存在子节点数据 -->
+	<select id="isExitsChildJqxz" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(jqxzbh) from T_PUB_JQXZDM t
+		<where>
+			<include refid="jqxzContain" />
+		</where>
+	</select>
+
+	
+
+</mapper>

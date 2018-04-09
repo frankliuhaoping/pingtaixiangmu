@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.SysOrgDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.bo.SysOrg"> <!-- 查询对象 -->
+		select t.ORG_ID as dwdm,t.ORG_ID as
+		jhdwdm,t.PARENT_ID as GXDWDM,t.NAME as dwmc,t.ORG_LEVEL as
+		DWJB,t.CODE_PATH as DWJBMS,t.ADDRESS as DWDZ,t.ADD_TIME as cjsj,t.UPDATE_TIME
+		as GXSJ, t.IS_DEFAULT as isDefault,t.ORDER_NUM as orderNum from
+		U_PORTAL.V_SYS_ORG t where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<!--查询对象返回pubzzjg类型 -->
+	<select id="getPubZzjgByDwdm" resultType="com.htcf.system.model.po.PubZzjg"> 
+		select t.ORG_ID as dwdm,t.ORG_ID as
+		jhdwdm,t.PARENT_ID as GXDWDM,t.NAME as dwmc,t.ORG_LEVEL as
+		DWJB,t.CODE_PATH as DWJBMS,t.ADDRESS as DWDZ,t.NAME as jhdwmc ,
+		t.ADD_TIME as cjsj,t.UPDATE_TIME
+		as GXSJ from
+		U_PORTAL.V_SYS_ORG t where 1=1
+		<include refid="common.where"></include>
+	</select>
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from U_PORTAL.V_SYS_ORG t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	<!-- 基础方法 end -->
+	<!-- 批量查询 -->
+	<select id="getSysOrgs" resultType="com.htcf.system.model.bo.SysOrg">
+		select 
+		t.ORG_ID as dwdm,t.ORG_ID as jhdwdm,t.PARENT_ID as GXDWDM,
+		t.NAME as dwmc,t.ORG_LEVEL as DWJB,t.CODE_PATH as DWJBMS,
+		t.ADDRESS as DWDZ,t.ADD_TIME as cjsj,t.UPDATE_TIME
+		as GXSJ, t.IS_DEFAULT as isDefault,t.ORDER_NUM as orderNum
+		from
+		U_PORTAL.V_SYS_ORG t
+		where t.ORG_ID in
+			<foreach collection="array" item="id" index="index" open="(" separator="," close=")">
+				#{id}
+			</foreach>  	
+	</select>
+</mapper>

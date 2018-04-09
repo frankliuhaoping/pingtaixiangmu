@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.SysUserDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.bo.SysUser"> <!-- 查询对象 -->
+		SELECT T .username AS yhbh,T .username AS yhzh,T . PASSWORD AS yhmm,
+		T .mobile AS lxdh,T .CREATE_USER_ID AS cjrxm,T .CREATE_TIME AS cjsj,T .xm AS yhmc,
+		T .org_id AS ssdwdm,T.user_id,T.email,T.face,T.gmsfhm AS pkiid,T.loginAuthOrIties,
+		( case T .status
+		WHEN 1 THEN 'Y'
+		WHEN 2 THEN 'N'
+		END
+		) sybz
+		FROM U_PORTAL.V_SYS_USER T
+		WHERE 1 = 1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="getPubUserByYhbh" resultType="com.htcf.system.model.po.PubUser"> <!-- 查询对象 -->
+		SELECT T .username AS yhbh,T .username AS yhzh,T . PASSWORD AS yhmm,
+		T .mobile AS lxdh,T .CREATE_USER_ID AS cjrxm,T .CREATE_TIME AS cjsj,T .xm AS yhmc,
+		T .org_id AS ssdwdm,
+		( case T .status
+		WHEN '1' THEN 'Y'
+		WHEN '2' THEN 'N'
+		END
+		) sybz
+		FROM U_PORTAL.V_SYS_USER T
+		WHERE 1 = 1
+		<include refid="common.where"></include>
+	</select>
+	
+	
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from U_PORTAL.V_SYS_USER t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	<!-- 基础方法 end -->
+	<!-- 批量查询 -->
+	<select id="getSysUsers" resultType="com.htcf.system.model.bo.SysUser">
+		SELECT 
+		T .username AS yhbh,T .username AS yhzh,T . PASSWORD AS yhmm,
+		T .mobile AS lxdh,T .CREATE_USER_ID AS cjrxm,T .CREATE_TIME AS cjsj,T .xm AS yhmc,
+		T .org_id AS ssdwdm,T.user_id,T.email,T.face,T.gmsfhm as pkiid,T.loginAuthOrIties,
+		( case T .status
+		WHEN '1' THEN 'Y'
+		WHEN '2' THEN 'N'
+		END
+		) sybz
+		FROM U_PORTAL.V_SYS_USER T
+		where t.username in
+			<foreach collection="array" item="id" index="index" open="(" separator="," close=")">
+				#{id}
+			</foreach>  	
+	</select>
+</mapper>

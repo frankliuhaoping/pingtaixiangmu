@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+            
+            		
+	<dubbo:service interface="com.htcf.frame.service.AppService"
+		ref="pubAppService" protocol="dubbo"  />
+	<dubbo:service interface="com.htcf.frame.service.UserService"
+		ref="pubUserService" protocol="dubbo" />
+
+	<dubbo:service interface="com.htcf.frame.service.OrgService"
+		ref="pubZzjgService" protocol="dubbo"  />
+
+	<dubbo:service interface="com.htcf.frame.service.SessionService"
+		ref="system.SessionService" protocol="dubbo"  />
+
+	<!--资源服务 -->
+	<dubbo:service interface="com.htcf.frame.service.ResService"
+		ref="pubResService" protocol="dubbo" />
+
+	<!--文件管理服务 -->
+	<dubbo:service interface="com.htcf.frame.service.FileService"
+		ref="pubFileService" protocol="dubbo"  />
+	<!--全局参数服务 -->
+	<dubbo:service interface="com.htcf.frame.service.ParamService"
+		ref="pubParamService" protocol="dubbo"  />
+	<!--日志服务 -->
+	<dubbo:service interface="com.htcf.frame.service.LogService"
+		ref="pubLogService" protocol="dubbo"  />
+
+	<!--定时任务日志服务 -->
+	<dubbo:service interface="com.htcf.frame.service.SchlogService"
+		ref="pubSchlogService" protocol="dubbo"  />
+	<!--系统字典服务 -->
+	<dubbo:service interface="com.htcf.frame.service.DictService"
+		ref="pubXtzdService" protocol="dubbo"  />
+
+</beans>

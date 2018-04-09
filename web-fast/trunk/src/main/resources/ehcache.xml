@@ -1,0 +1,104 @@
+<ehcache updateCheck="false">
+
+	<cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=1445,timeToLive=255" />
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" />
+
+
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache maxElementsInMemory="1000" eternal="false"
+		overflowToDisk="false" timeToLiveSeconds="60" timeToIdleSeconds="10">
+	</defaultCache>
+
+
+	<!-- session缓存 -->
+	<cache name="sessionCache" maxElementsInMemory="1000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+
+	<!-- pubRes缓存 -->
+	<cache name="pubResCache" maxElementsInMemory="10000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+	
+	<!-- pubRes缓存     key = yyid_zyfid -->
+	<cache name="pubResListCache" maxElementsInMemory="10000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+	
+	<!-- permissionCache 权限代码 key为 yyid_yhbh -->
+	<cache name="permissionCache" maxElementsInMemory="1000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+	
+	<!-- pubUserCache 用户缓存  key=用户账号   注意不是用户编号 -->
+	<cache name="pubUserCache" maxElementsInMemory="1000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+	
+	<!-- pubXtzdListCache 字典缓存  key=yyid_zdbh  -->
+	<cache name="pubXtzdListCache" maxElementsInMemory="1000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+	
+	<!-- pubZzjgCache 组织机构缓存  缓存当前组织的对应子节点组织集合key=p_+组织code 、 缓存当前组织基本信息key=s_+组织code -->
+	<cache name="pubZzjgCache" maxElementsInMemory="10000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+	
+	<!-- "channelCache"  频道缓存  -->
+	<cache name="channelCache" maxElementsInMemory="1000" eternal="false"
+		overflowToDisk="false" timeToIdleSeconds="1800" copyOnWrite="true"
+		copyOnRead="true" memoryStoreEvictionPolicy="LRU" statistics="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,replicateUpdatesViaCopy= true, replicateRemovals= true " />
+		<bootstrapCacheLoaderFactory
+			class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+	</cache>
+</ehcache>

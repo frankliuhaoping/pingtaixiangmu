@@ -1,0 +1,16 @@
+<ehcache>
+
+    <!-- multicastGroupAddress，multicastGroupPort 需要改动， 具体数值请找平台组的陈诗哲 -->
+    <cacheManagerPeerProviderFactory
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+        properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=4445,timeToLive=255" />
+    <cacheManagerPeerListenerFactory
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" />
+
+    <diskStore path="java.io.tmpdir" />
+
+    <defaultCache maxElementsInMemory="1000" eternal="false"
+        overflowToDisk="false" timeToLiveSeconds="60" timeToIdleSeconds="10">
+    </defaultCache>
+    
+</ehcache>

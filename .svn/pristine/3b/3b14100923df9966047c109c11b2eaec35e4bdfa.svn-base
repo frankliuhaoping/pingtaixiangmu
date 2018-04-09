@@ -1,0 +1,24 @@
+环境切换
+
+东莞测试环境：
+1. 数据库
+service-xxx下的database.properties
+192.168.107.3:1521:orcl  dgga110/110110
+
+
+2. dubbo服务
+web-xxx  service-xxx  2个工程中都需要修改消费端文件
+spring-dubbo-consumer.xml  
+将平台的相关地址改为：
+dubbo://192.168.107.3:20818
+如果工程中还依赖其他服务，请注意自行修改
+
+
+3. 单点登录
+web-xxx下的shiro-client.properties
+client.login.url=http://192.168.107.3:8080/web-system/login
+
+
+4. 文件服务
+web-xxx 下的 fdfs_client.conf
+tracker_server = 192.168.107.1:22122

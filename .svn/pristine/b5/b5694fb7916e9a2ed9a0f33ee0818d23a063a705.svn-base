@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 采用注释的方式配置bean -->
+	<context:annotation-config />
+
+	<!-- 配置要扫描的包 -->
+	<context:component-scan base-package="com.htcf.template.web" />
+	
+	<!-- 服务和web需要的公共包 -->
+	<context:component-scan base-package="com.htcf.frame.web.controller"/>	
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!-- 读入配置属性文件 -->
+	<import resource="classpath:spring/dubbo-consumer.xml" />
+	<import resource="classpath:spring/spring-client-shiro.xml" />
+
+    <!-- 统一异常捕获 -->
+    <bean id="commonExceptionResolver" class="com.htcf.frame.web.exception.CommonExceptionResolver"/>
+	<bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>i18n.messages</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+</beans>

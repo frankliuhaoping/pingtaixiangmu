@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志输出级别 trace < debug < info < warn < error < fatal -->
+<configuration status="OFF">
+	<appenders>
+		<!-- 按天第天备份一个日志 -->
+        <RollingFile name="RollingFile" fileName="/logs/web-system.log"
+            filePattern="/logs/web-system_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d %p %c %L %m%n" />
+            <Policies>
+                <!-- 每24小时更新一次 -->
+                <TimeBasedTriggeringPolicy modulate="true"
+                    interval="24" />
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+            <!-- 最多备份10个 -->
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+        
+        <!--这个输出控制台的配置-->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %-5p [%t] %M() (%F:%L) - %m%n" />
+		</Console>
+	</appenders>
+	<loggers>
+		<!--  具体的包级别控制 -->
+		<logger name="org.springframework" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="org.apache.zookeeper" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.I0Itec.zkclient" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.alibaba" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="org.apache.shiro" level="error" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+        
+        <logger name="org.dozer" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<!-- dozer依赖 -->
+		<logger name="org.apache.commons" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="springfox" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+        
+        <!--  长峰框架API内部日志 -->
+		<logger name="com.htcf.frame" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</logger>
+		
+		<!--  本系统日志 -->
+        <logger name="com.htcf.system.web" level="debug" additivity="false">
+            <appender-ref ref="Console" />
+            <appender-ref ref="RollingFile" />
+        </logger>
+		<root level="debug">
+			<appender-ref ref="Console" />
+		</root> 
+	</loggers>
+</configuration>

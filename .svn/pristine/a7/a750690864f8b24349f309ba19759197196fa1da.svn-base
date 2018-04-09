@@ -1,0 +1,337 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+ 
+	<parent>
+		<groupId>com.htcf</groupId>
+		<artifactId>common-parent</artifactId>
+		<version>1.2-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>service-system</artifactId>
+	<version>1.3-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>service-system</name>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.htcf</groupId>
+			<artifactId>facade-system</artifactId>
+			<version>1.3-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.htcf</groupId>
+			<artifactId>common-service</artifactId>
+			<version>1.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.4</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jboss.resteasy</groupId>
+		    <artifactId>resteasy-wadl</artifactId>
+		    <version>3.0.13.Final</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework.amqp</groupId>  
+            <artifactId>spring-rabbit</artifactId>  
+            <version>1.7.3.RELEASE</version>  
+        </dependency>
+        
+        <dependency>  
+            <groupId>org.springframework.amqp</groupId>  
+            <artifactId>spring-amqp</artifactId>
+            <version>1.7.3.RELEASE</version>  
+        </dependency>
+
+	</dependencies>
+
+	<scm>
+		<connection>scm:svn:https://192.168.0.127:8443/svn/projects/police/service/service-system/trunk</connection>
+		<developerConnection>scm:svn:https://192.168.0.127:8443/svn/projects/police/service/service-system/trunk</developerConnection>
+		<url>svn:https://192.168.0.127:8443/svn/projects/police/service/service-system/trunk</url>
+	</scm>
+
+	<build>
+		<finalName>service-system</finalName>
+
+		<resources>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>ehcache.xml</include>
+					<include>fastdfs/fdfs_client.conf</include>
+				</includes>
+			</resource>
+			 <resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<!-- <resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+			<resource>
+				<targetPath>${project.build.directory}/test-classes/fastdfs</targetPath>
+				<directory>src/test/resources/fastdfs</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<resource>
+				<targetPath>${project.build.directory}/fastdfs</targetPath>
+				<directory>src/main/resources/fastdfs</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource> -->
+			<resource>
+				<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+				<directory>src/main/resources/spring</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>spring-context.xml</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- 测试用例执行开关 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/classes/</classesDirectory>
+					<archive>
+						<manifest>
+							<mainClass>com.alibaba.dubbo.container.Main</mainClass>
+							<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+							<useUniqueVersions>false</useUniqueVersions>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<type>jar</type>
+							<includeTypes>jar</includeTypes>
+							<useUniqueVersions>false</useUniqueVersions>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+				<configuration>
+					<tagBase>
+						https://192.168.0.127:8443/svn/projects/police/service/service-system/tags
+					</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+	
+	
+	<profiles>
+        <profile>
+        	<!-- 公司开发环境 默认 -->
+            <id>dev</id>
+            <activation> 
+               <activeByDefault>true</activeByDefault> 
+            </activation> 
+            <properties>
+                <jdbc.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc.driverClass>
+                <jdbc.url>jdbc:log4jdbc:oracle:thin:@192.168.0.80:1521:orcl</jdbc.url>
+                <jdbc.user>dev_system</jdbc.user>
+                <jdbc.password>dev_system</jdbc.password>
+                <!-- 新德汇数据源 -->
+                <jdbc_xdh.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc_xdh.driverClass>
+                <jdbc_xdh.url>jdbc:log4jdbc:oracle:thin:@192.168.0.2:1521:cf110</jdbc_xdh.url>
+                <jdbc_xdh.user>dgga110</jdbc_xdh.user>
+                <jdbc_xdh.password>110110</jdbc_xdh.password>
+                
+                <dubbo.registry.address>192.168.0.84:2181</dubbo.registry.address>           
+                <dubbo.provider.ip>192.168.0.84</dubbo.provider.ip> 
+                <spring.profiles.active>dev</spring.profiles.active>
+                <cache.port>15000</cache.port>
+                <tracker.server>10.235.180.141:22122</tracker.server>
+            </properties>
+        </profile>
+        <profile>	
+        	<!-- 测试环境 通过 -Ptest 指定 -->
+            <id>test</id>
+<!--             <activation> -->
+<!--                 <activeByDefault>true</activeByDefault> -->
+<!--             </activation> -->
+            <properties>
+        
+                <jdbc.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc.driverClass>
+                <jdbc.url>jdbc:log4jdbc:oracle:thin:@68.174.75.102:1521/dg110test</jdbc.url>
+                <jdbc.user>test_system</jdbc.user>
+                <jdbc.password>test_system</jdbc.password>
+                <!-- 新德汇数据源 -->
+                <jdbc_xdh.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc_xdh.driverClass>
+                <jdbc_xdh.url>jdbc:log4jdbc:oracle:thin:@68.174.32.11:1521/racdb</jdbc_xdh.url>
+                <jdbc_xdh.user>u_sso</jdbc_xdh.user>
+                <jdbc_xdh.password>u_sso</jdbc_xdh.password>
+<!--                 <dubbo.registry.address>127.0.0.1:2181</dubbo.registry.address> -->
+                <dubbo.registry.address>10.235.180.109:2181</dubbo.registry.address> 
+                <dubbo.provider.ip>127.0.0.1</dubbo.provider.ip>                
+                <spring.profiles.active>test</spring.profiles.active>
+                <cache.port>16000</cache.port>
+                <tracker.server>10.235.180.141:22122</tracker.server>
+            </properties>
+        </profile>
+        
+        <profile>
+        	<!-- 正式环境 通过 -Pprod 指定 -->
+            <id>prod</id>
+<!--             <activation>  -->
+<!--                <activeByDefault>true</activeByDefault>  -->
+<!--             </activation>  -->
+            <properties>
+               <jdbc.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc.driverClass>
+                <jdbc.url>jdbc:log4jdbc:oracle:thin:@68.174.75.102:1521/dg110prod</jdbc.url>
+                <jdbc.user>prod_system</jdbc.user>
+                <jdbc.password>prod_system</jdbc.password>
+                
+                <!-- 新德汇数据源 -->
+                <jdbc_xdh.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc_xdh.driverClass>
+                <jdbc_xdh.url>jdbc:log4jdbc:oracle:thin:@68.174.32.11:1521/racdb</jdbc_xdh.url>
+                <jdbc_xdh.user>u_sso</jdbc_xdh.user>
+                <jdbc_xdh.password>u_sso</jdbc_xdh.password>
+                
+<!--                 <dubbo.registry.address>127.0.0.1:2181</dubbo.registry.address> -->
+<!--                 <dubbo.provider.ip>127.0.0.1</dubbo.provider.ip>     -->
+                <dubbo.registry.address>10.235.180.117:2181</dubbo.registry.address>    
+                <dubbo.provider.ip>127.0.0.1</dubbo.provider.ip> 
+                <spring.profiles.active>prod</spring.profiles.active>
+                <cache.port>17000</cache.port>
+                <tracker.server>10.235.180.141:22122</tracker.server>
+            </properties>
+        </profile>
+        <profile>
+        	<!-- 东莞开发环境 通过 -Pdg_dev 指定 -->
+            <id>dg_dev</id>
+<!--         	<activation>  -->
+<!--                <activeByDefault>true</activeByDefault>  -->
+<!--             </activation>  -->
+            <properties>
+                <jdbc.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc.driverClass>
+                <jdbc.url>jdbc:log4jdbc:oracle:thin:@68.174.75.102:1521/dg110dev</jdbc.url>
+                <jdbc.user>dev_system</jdbc.user>
+                <jdbc.password>dev_system</jdbc.password>            
+                
+                <jdbc_xdh.driverClass>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc_xdh.driverClass>
+                <jdbc_xdh.url>jdbc:log4jdbc:oracle:thin:@68.174.32.11:1521/racdb</jdbc_xdh.url>
+                <jdbc_xdh.user>u_sso</jdbc_xdh.user>
+                <jdbc_xdh.password>u_sso</jdbc_xdh.password> 
+                
+<!--                 <dubbo.registry.address>10.235.180.118:2181</dubbo.registry.address>     -->
+<!--                 <dubbo.provider.ip>10.235.180.118</dubbo.provider.ip>  -->
+                <dubbo.registry.address>127.0.0.1:2181</dubbo.registry.address>    
+                <dubbo.provider.ip>127.0.0.1</dubbo.provider.ip> 
+                <spring.profiles.active>dg_dev</spring.profiles.active>
+                <cache.port>15000</cache.port>
+                <tracker.server>10.235.180.141:22122</tracker.server>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
+

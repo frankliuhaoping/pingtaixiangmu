@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:rdb="http://www.dangdang.com/schema/ddframe/rdb"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/tx 
+                        http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.dangdang.com/schema/ddframe/rdb 
+                        http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd">
+                
+    <rdb:strategy id="tableShardingStrategy" sharding-columns="XTM" algorithm-class="com.htcf.system.init.TableShardingAlgorithm"/>
+    
+    <rdb:data-source id="shardingDataSource">
+        <rdb:sharding-rule data-sources="dataSource">
+            <rdb:table-rules>
+                <rdb:table-rule logic-table="T_PUB_LOG"   actual-tables="T_PUB_LOG${[1711,1712,1801]}"  table-strategy="tableShardingStrategy"/>
+            </rdb:table-rules>
+        </rdb:sharding-rule>
+    </rdb:data-source>
+   <!--  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="shardingDataSource" />
+    </bean> --> 
+ 
+</beans>

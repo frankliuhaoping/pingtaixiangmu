@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 用户服务接口，可以引入多个接口 -->
+	<dubbo:reference interface="com.htcf.system.service.PubAppService" version="1.0.0" id="pubAppService" check="false" retries="0" timeout="60000" />
+	<dubbo:reference interface="com.htcf.system.service.PubResService" version="1.0.0" id="pubResService" check="false" retries="0" timeout="60000" />
+	<dubbo:reference interface="com.htcf.system.service.PubUserService" version="1.0.0" id="pubUserService" check="false" retries="0" timeout="60000" />
+	<dubbo:reference interface="com.htcf.system.service.PubRoleService"  id="pubRoleService" check="false" retries="0" timeout="60000" />
+	<dubbo:reference interface="com.htcf.system.service.PubAuthService"  id="pubAuthService" check="false" retries="0" timeout="60000" />
+	<!-- 组织机构 -->
+	<dubbo:reference interface="com.htcf.system.service.PubZzjgService" version="1.0.0" id="pubZzjgService" check="false" retries="0" timeout="60000" />
+	<!-- 组织机构使用 -->
+	<dubbo:reference interface="com.htcf.system.service.PubZzjgsyService" id="pubZzjgsyService" check="false" retries="0" timeout="60000" />
+	<!-- 警情性质 -->
+	<dubbo:reference interface="com.htcf.system.service.PubJqxzService"  id="pubJqxzService" check="false" retries="0" timeout="60000" />
+	<!-- 警情性质使用 -->
+	<dubbo:reference interface="com.htcf.system.service.PubJqxzsyService"  id="pubJqxzsyService" check="false" retries="0" timeout="60000" />
+	<!-- 文件 -->
+	<dubbo:reference interface="com.htcf.system.service.PubFileService" version="1.0.0" id="pubFileService" check="false" retries="0" timeout="60000" />
+    <!-- 全局参数 -->
+    <dubbo:reference interface="com.htcf.system.service.PubParamService" version="1.0.0" id="pubParamService" check="false" retries="0" timeout="60000" />
+	<!-- 字典 -->
+	<dubbo:reference interface="com.htcf.system.service.PubXtzdService" version="1.0.0" id="pubXtzdService" check="false" retries="0" timeout="60000" />
+	<!-- 人员信息 -->
+	<dubbo:reference interface="com.htcf.system.service.PubRyxxService"  id="pubRyxxService" check="false" retries="0" timeout="60000" />
+	<!-- 日志 -->
+	<dubbo:reference interface="com.htcf.system.service.PubLogService" version="1.0.0" id="pubLogService" check="false" retries="0" timeout="60000" >
+		<dubbo:method name="addLog" async="true" />  
+    </dubbo:reference>
+    <!-- 定时任务 -->
+	<dubbo:reference interface="com.htcf.system.service.PubScheduleService" version="1.0.0" id="pubScheduleService" check="false" retries="0" timeout="60000" />
+	
+	<!-- 定时任务日志 -->
+	<dubbo:reference interface="com.htcf.system.service.PubSchlogService" version="1.0.0" id="pubSchlogService" check="false" retries="0" timeout="60000" />
+	
+	<!-- 审计日志 -->
+	<dubbo:reference interface="com.htcf.system.service.PubAuditService" id="pubAuditService" check="false" retries="0" timeout="60000" />
+	
+	<!-- websocket -->
+	<dubbo:reference interface="com.htcf.system.service.WebSocketService"  id="webSocketService" check="false" retries="0" timeout="60000" />
+	
+	<!-- 指挥中心配置信息 -->
+	<dubbo:reference interface="com.htcf.system.service.JcjZhzxpzxxService"  id="jcjZhzxpzxxService" check="false" retries="0" timeout="60000" />	
+	
+	<!-- gbs设备信息 -->
+	<dubbo:reference interface="com.htcf.system.service.PubGpssbxxService"  id="pubGpssbxxService" check="false" retries="0" timeout="60000" />	
+	
+	<!-- 通话组服务 -->
+	<dubbo:reference interface="com.htcf.system.service.PubPdtthzxxService"  id="pubPdtthzxxService" check="false" retries="0" timeout="60000" />
+
+	<!-- 通话组服务 -->
+	<dubbo:reference interface="com.htcf.system.service.DemoJjdbService"  id="demoJjdbService" check="false" retries="0" timeout="60000" />
+	
+	<!-- Sysuser -->
+	<dubbo:reference interface="com.htcf.system.service.SysUserService" id="sysUserService" check="false" retries="0" timeout="60000" />
+	
+	<!-- Sysuser -->
+	<dubbo:reference interface="com.htcf.system.service.SysOrgService" id="sysOrgService" check="false" retries="0" timeout="60000" />
+	
+	<!-- xdhCopyService -->
+ 	<dubbo:reference interface="com.htcf.system.service.XdhCopyService" id="xdhCopyService" check="false" retries="0" timeout="60000" />
+	
+</beans>

@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.htcf</groupId>
+		<artifactId>common-parent</artifactId>
+		<version>1.2-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>web-system</artifactId>
+	<version>1.3-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>web-system</name>
+
+	<properties>
+		<log4j.leve>debug</log4j.leve>
+		<log4j.ale>debug</log4j.ale>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.htcf</groupId>
+			<artifactId>common-web</artifactId>
+			<version>1.6-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.htcf</groupId>
+			<artifactId>facade-system</artifactId>
+			<version>1.3-SNAPSHOT</version>
+		</dependency>
+		
+		 <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+             <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+             <version>2.6.1</version>
+        </dependency>
+	</dependencies>
+
+	<scm>
+		<connection>scm:svn:https://192.168.0.3:8443/svn/DevelopmentDepart/police/15023_DG110/system/web-system/trunk</connection>
+		<developerConnection>scm:svn:https://192.168.0.3:8443/svn/DevelopmentDepart/police/15023_DG110/system/web-system/trunk</developerConnection>
+		<url>svn:https://192.168.0.3:8443/svn/DevelopmentDepart/police/15023_DG110/system/web-system/trunk</url>
+	</scm>
+
+	<build>
+		<finalName>web-system</finalName>
+
+		<resources>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.conf</include>
+					<include>**/*.vm</include>
+				</includes>
+			</resource>
+			
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+			
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+				<configuration>
+					<tagBase>
+						https://192.168.0.3:8443/svn/DevelopmentDepart/police/15023_DG110/system/web-system/tags
+					</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	 <profiles>
+        <profile>
+        	<!-- 开发环境 默认 -->
+            <id>dev</id>
+            <properties>
+                <dubbo.registry.address>192.168.0.84:2181</dubbo.registry.address>           
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+        	<!-- 测试环境 通过 -Ptest 指定 -->
+            <id>test</id>
+<!--                <activation> -->
+<!--                 <activeByDefault>true</activeByDefault> -->
+<!--          	   </activation> -->
+            <properties>
+<!--           	    <dubbo.registry.address>68.174.72.38:2181</dubbo.registry.address> -->
+            	<dubbo.registry.address>10.235.180.109:2181</dubbo.registry.address>                
+                <spring.profiles.active>test</spring.profiles.active>
+            </properties>
+        </profile>
+        
+        <profile>
+        	<!-- 正式环境 通过 -Pprod 指定 -->
+            <id>prod</id>
+<!--                <activation> -->
+<!--                 <activeByDefault>true</activeByDefault> -->
+<!--          	   </activation> -->
+            <properties>
+<!--             	<dubbo.registry.address>127.0.0.1:2181</dubbo.registry.address> -->
+            	<dubbo.registry.address>10.235.180.117:2181</dubbo.registry.address>    
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+        
+        <profile>
+        	<!-- 东莞开发环境 通过 -Pdg_dev 指定 -->
+            <id>dg_dev</id>
+               <activation>
+                <activeByDefault>true</activeByDefault>
+         	   </activation>
+            <properties>
+<!--                 <dubbo.registry.address>10.235.180.118:2181</dubbo.registry.address>  -->
+                <dubbo.registry.address>127.0.0.1:2181</dubbo.registry.address> 
+                   
+                <spring.profiles.active>dg_dev</spring.profiles.active>
+            </properties>
+        </profile>
+        </profiles>
+</project>

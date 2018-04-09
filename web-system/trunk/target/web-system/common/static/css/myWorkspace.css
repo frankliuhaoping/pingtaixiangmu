@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.pmHidden {
+	visibility: hidden;
+}
+
+.noResultText {
+	color: gray;
+}
+
+.ibox {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.ibox-content {
+	padding: 5px;
+}
+
+.ibox-content .list-group {
+	margin-bottom: 0;
+}
+
+.pin-title {
+	width: 60%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: right;
+}

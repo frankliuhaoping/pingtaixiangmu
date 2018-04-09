@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="common"> <!-- 通用mapper -->
+
+	<sql id="where"><!-- 通用查询条件 -->
+		<if test="conditions.size>0">
+			<foreach item="condition" index="index" collection="conditions" open=" and " close=" " separator=" and ">
+				<choose>
+					<when test="condition.operation == 'in'">
+						${condition.property} in
+						<foreach item="item" index="index" collection="condition.value" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</when>
+					<otherwise>
+						<choose>
+							<when test="condition.operation == 'is'">
+								<if test="condition.value == 'null'">
+									${condition.property} is null
+								</if>
+								<if test="condition.value == 'not null'">
+									${condition.property} is not null
+								</if>
+							</when>
+							<otherwise>
+								${condition.property} ${condition.operation} #{condition.value}
+							</otherwise>
+						</choose>
+						
+					</otherwise>
+				</choose>
+			</foreach>
+		</if>
+		<if test="sqlConditions.size > 0">
+			<foreach item="sqlCondition" index="index" collection="sqlConditions" open=" and " close=" " separator=" and ">
+				${sqlCondition}
+			</foreach>
+		</if>
+	</sql>
+	
+	<sql id="insert"><!-- 通用insert(部分) -->
+		<foreach item="property" index="index" collection="properties" open="(" close=")" separator=",">
+			<if test="property.value != null">${property.name}</if>
+		</foreach>
+		values
+		<foreach item="property" index="index" collection="properties" open="(" close=")" separator=",">
+			<if test="property.value != null">#{property.value}</if>
+		</foreach>
+	</sql>
+	
+	<sql id="update"><!-- 通用update(部分) -->
+		<foreach item="property" index="index" collection="properties" separator=",">
+			<if test="property.value != null">${property.name}=#{property.value}</if>
+		</foreach>
+		<if test="sjbb != null">
+			, sjbb = #{sjbb} + 1
+		</if>
+		where
+		<if test="sjbb != null">
+			sjbb = #{sjbb} and 
+		</if>
+		<foreach item="property" index="index" collection="priKeys" open="" separator="and" close="">
+			<if test="property.value != null">${property.name}=#{property.value}</if>
+		</foreach>
+	</sql>
+
+</mapper>

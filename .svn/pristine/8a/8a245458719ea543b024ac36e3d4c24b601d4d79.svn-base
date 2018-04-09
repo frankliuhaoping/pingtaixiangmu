@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.PubZzjgsyDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.po.PubZzjgsy"> <!-- 查询对象 -->
+		select t.*
+		from T_PUB_ZZJGSY t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from T_PUB_ZZJGSY t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="getSeq" resultType="java.lang.Long"> <!-- 获取序列 -->
+		select SEQ_PUB_ZZJGSY.nextval from dual
+	</select>
+	
+	<insert id="add"> <!-- 新增 -->
+		insert into T_PUB_ZZJGSY 
+		<include refid="common.insert"></include>
+	</insert>
+
+	<update id="update"> <!-- 修改 -->
+		update T_PUB_ZZJGSY set
+		<include refid="common.update"></include>
+	</update>
+	
+	<delete id="delete"> <!-- 删除 -->
+		delete from T_PUB_ZZJGSY 
+		where ZZJGSYID = #{0}
+	</delete>
+	
+	<delete id="batchDelete"> <!-- 批量删除 -->
+		delete from T_PUB_ZZJGSY 
+		where ZZJGSYID in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 基础方法 end -->
+	
+	<delete id="deleteByZdbh">
+		delete from T_PUB_ZZJGSY where zdbh = #{zdbh}
+	</delete>
+	
+	<select id="queryDwdmByZdbh" resultType="string">
+		select dwdm from T_PUB_ZZJGSY where zdbh = #{zdbh}
+	</select>
+	
+	<select id="queryPubZzjgBoByZdbh" resultType="com.htcf.system.model.po.PubZzjg">
+		select 
+			t.* 
+		from 
+			T_PUB_ZZJG t,
+			T_PUB_ZZJGSY t2 
+		where 
+			t.DWDM = t2.DWDM and 
+			t2.zdbh = #{zdbh} and 
+			<choose>
+				<when test="gxdwdm != null">
+					t.gxdwdm = #{gxdwdm}
+				</when>
+				<otherwise>
+					t.gxdwdm is null
+				</otherwise>
+			</choose>
+	</select>
+	
+</mapper>

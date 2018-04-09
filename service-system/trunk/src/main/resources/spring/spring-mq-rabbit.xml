@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+     http://www.springframework.org/schema/rabbit  
+     http://www.springframework.org/schema/rabbit/spring-rabbit-1.2.xsd">
+
+
+	<!-- <bean id="retryOperationsInterceptorFactoryBean" class="org.springframework.amqp.rabbit.config.StatelessRetryOperationsInterceptorFactoryBean"> 
+		<property name="messageRecoverer"> <bean class="com.zefun.wechat.utils.MQRepublishMessageRecoverer"/> 
+		</property> <property name="retryOperations"> <bean class="org.springframework.retry.support.RetryTemplate"> 
+		<property name="backOffPolicy"> <bean class="org.springframework.retry.backoff.ExponentialBackOffPolicy"> 
+		<property name="initialInterval" value="500" /> <property name="multiplier" 
+		value="10.0" /> <property name="maxInterval" value="10000" /> </bean> </property> 
+		</bean> </property> </bean> -->
+
+	<bean id="connectionFactory"
+		class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg value="192.168.0.79" />
+		<property name="username" value="admin" />
+		<property name="password" value="admin" />
+		<property name="virtualHost" value="/" />
+		<property name="port" value="5670" />
+		<property name="requestedHeartBeat" value="60" />
+	</bean>
+
+	<bean id="rabbitAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="connectionFactory" />
+	</bean>
+
+	<!-- 创建rabbitTemplate 消息模板类 -->
+	<bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate" >
+		<constructor-arg ref="connectionFactory"></constructor-arg>
+	</bean>
+
+	<!-- <bean id="messageReceiver" class="com.htcf.system.service.impl.MessageConsumer"></bean> -->
+
+	<!-- <bean id="listenerContainer"
+		class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+		<property name="queues" ref="queue"></property>
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="messageListener" ref="messageListenerAdapter"></property>
+	</bean> -->
+
+	<!-- hello1队列
+	<rabbit:queue name="rpc_queue" durable="false" exclusive="false" declared-by="rabbitAdmin" /> 
+	
+	<bean id="rpcService" class="com.htcf.system.service.impl.RpcService"></bean>
+	<rabbit:listener-container
+        connection-factory="connectionFactory">
+        <rabbit:listener queues="rpc_queue" ref="rpcService" />
+    </rabbit:listener-container>-->
+    
+    
+    <!-- <rabbit:queue id="aaa" declared-by="rabbitAdmin" /> -->
+		
+    <!-- 定义direct exchange，绑定queueTest -->
+    <!-- <rabbit:fanout-exchange name="jq" durable="true" auto-delete="false"
+        declared-by="rabbitAdmin">
+        <rabbit:bindings>
+            <rabbit:binding queue="aaa"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:fanout-exchange> -->
+    
+    <!-- <rabbit:fanout-exchange name="logs"
+        durable="true" auto-delete="false" declared-by="rabbitAdmin">
+        <rabbit:bindings>
+            <rabbit:binding queue="aaa"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
+        
+    <rabbit:listener-container connection-factory="connectionFactory">
+    	<rabbit:listener queues="aaa" ref="messageReceiver"/>
+	</rabbit:listener-container> -->
+	
+	<!--返回结果的template-->
+    <!-- <rabbit:template id="amqpTemplateInternetProxy" 
+        connection-factory="connectionFactory">
+    </rabbit:template> -->
+	<!--服务监听-->
+    <!-- <rabbit:listener-container acknowledge="none" prefetch="10">
+        <rabbit:listener ref="service" queue-names="rpc_queue" />
+    </rabbit:listener-container> -->
+	<!--服务实现-->
+    <!-- <bean id="serviceImpl" class="com.htcf.system.service.impl.RpcService"></bean> -->
+    
+    
+		
+	<!-- <bean id="amqpAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin"> 
+		<constructor-arg ref="connectionFactory" /> </bean> <bean id="rabbitTemplate" 
+		class="org.springframework.amqp.rabbit.core.RabbitTemplate"> <constructor-arg 
+		ref="connectionFactory"></constructor-arg> </bean> <bean id="messageProducer" 
+		class="com.abin.rabbitmq.MessageProducer"> <property name="rabbitTemplate"> 
+		<ref bean="rabbitTemplate" /> </property> </bean> -->
+</beans>

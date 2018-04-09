@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="service-system" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
+	<!-- 用dubbo协议在20818端口暴露服务,多网卡时需要指定暴露的地址 -->
+<!-- 	<dubbo:protocol host="${dubbo.provider.ip}" name="dubbo" port="21818" /> -->
+	<!-- 本地使用 -->
+<!-- 	<dubbo:registry protocol="zookeeper" address="zookeeper://127.0.0.1:2181"/> -->
+	<dubbo:protocol  name="dubbo" port="20818" />
+	<!--直连  -->
+<!-- 	<dubbo:registry address="N/A" />  -->
+	<!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
+	<dubbo:provider timeout="10000" threadpool="fixed"
+		threads="100" accepts="1000" />
+	<!-- 声明需要暴露的服务接口，可以暴露多个接口（根据具体service来决定） -->
+
+	<!--机器管理服务  -->	
+<!-- 	<dubbo:service group="system" interface="com.htcf.frame.service.SystemManagerService"  -->
+<!-- 		ref="systemManagerService" protocol="dubbo" /> -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubAppService"
+		ref="pubAppService" protocol="dubbo"  />
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubUserService"
+		ref="pubUserService" protocol="dubbo" />
+	<dubbo:service interface="com.htcf.system.service.PubRoleService"
+		ref="pubRoleService" protocol="dubbo"  />
+
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubZzjgService"
+		ref="pubZzjgService" protocol="dubbo"  />
+	<dubbo:service interface="com.htcf.system.service.PubZzjgsyService"
+		ref="pubZzjgsyService" protocol="dubbo"  />
+	<!-- 警情性质 -->
+	<dubbo:service interface="com.htcf.system.service.PubJqxzService"
+		ref="pubJqxzService" protocol="dubbo"  />
+	
+	<!-- 警情性质使用 -->
+	<dubbo:service interface="com.htcf.system.service.PubJqxzsyService"
+		ref="pubJqxzsyService" protocol="dubbo"  />
+		
+	<!-- 人员信息 -->
+	<dubbo:service interface="com.htcf.system.service.PubRyxxService"
+		ref="pubRyxxService" protocol="dubbo" />
+
+	<!--资源服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubResService"
+		ref="pubResService" protocol="dubbo" />
+	<!--授权服务 -->
+	<dubbo:service interface="com.htcf.system.service.PubAuthService"
+		ref="pubAuthService" protocol="dubbo"  />
+
+	
+	<!--文件管理服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubFileService"
+		ref="pubFileService" protocol="dubbo"  />
+	<!--全局参数服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubParamService"
+		ref="pubParamService" protocol="dubbo"  />
+	<!--日志服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubLogService"
+		ref="pubLogService" protocol="dubbo"  />
+	<!--定时任务服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubScheduleService"
+		ref="pubScheduleService" protocol="dubbo"  />
+	<!--审计配置信息 -->
+	<dubbo:service interface="com.htcf.system.service.PubAuditService"
+		ref="pubAuditService" protocol="dubbo"  />
+	<!--定时任务日志服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubSchlogService"
+		ref="pubSchlogService" protocol="dubbo"  />
+	<!--系统字典服务 -->
+	<dubbo:service version="1.0.0" interface="com.htcf.system.service.PubXtzdService"
+		ref="pubXtzdService" protocol="dubbo"  />
+	<!--websocket服务 -->
+	<dubbo:service interface="com.htcf.system.service.WebSocketService"
+		ref="webSocketService" protocol="dubbo"  />
+	<!--指挥中心配置信息 -->
+	<dubbo:service interface="com.htcf.system.service.JcjZhzxpzxxService"
+		ref="jcjZhzxpzxxService" protocol="dubbo" />
+	<!--gps设备配置信息 服务 -->
+	<dubbo:service interface="com.htcf.system.service.PubGpssbxxService"
+		ref="pubGpssbxxService" protocol="dubbo" />
+	<!--通话组信息 服务 -->
+	<dubbo:service interface="com.htcf.system.service.PubPdtthzxxService"
+		ref="pubPdtthzxxService" protocol="dubbo"  />
+	<!--demo 服务 -->
+	<dubbo:service interface="com.htcf.system.service.DemoJjdbService"
+		ref="demoJjdbService" protocol="dubbo"  />
+	<!--sysUser 服务 -->
+	<dubbo:service interface="com.htcf.system.service.SysUserService"
+		ref="sysUserService" protocol="dubbo"  />
+	<!--sysOrg 服务 -->
+	<dubbo:service interface="com.htcf.system.service.SysOrgService" ref="sysOrgService" protocol="dubbo"  />
+	<!--xdhCopyService 服务 -->
+	<dubbo:service interface="com.htcf.system.service.XdhCopyService" ref="xdhCopyService" protocol="dubbo"  />
+
+
+	<import resource="classpath:spring/common-dubbo-provider.xml" /> 
+	<import resource="classpath:spring/spring-dubbo-provider-common.xml" /> 
+</beans>

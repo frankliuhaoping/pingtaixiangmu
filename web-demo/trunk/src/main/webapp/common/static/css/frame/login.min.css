@@ -1,0 +1,45 @@
+.Loginbody {
+	width: 100%;
+    min-width:1280px;
+    background-image: -webkit-linear-gradient(90deg, #037be4 0%, #027ce5 35%, #0392eb 75%, #1a88e6 100%);
+    background-image: -moz-linear-gradient(90deg, #037be4 0%, #027ce5 35%, #0392eb 75%, #1a88e6 100%);
+    background-image: -ms-linear-gradient(90deg, #037be4 0%, #027ce5 35%, #0392eb 75%, #1a88e6 100%);
+    background-image: linear-gradient(0deg, #037be4 0%, #027ce5 35%, #0392eb 75%, #1a88e6 100%);
+}
+input{outline:none;}
+/*cloud*/
+#mainBody {width:100%;height:100%;position:absolute;z-index:-1;}
+.cloud {position:absolute;top:0px;left:0px;width:100%;height:100%;background:url(../../img/cloud.png) no-repeat;z-index:1;opacity:0.5;}
+#cloud2 {z-index:2;}
+
+/*login*/
+.loginbody{background:url(../../img/loginbg3.png) no-repeat center center; width:100%; height:585px; overflow:hidden;}
+.systemlogo{background:url(../../img/loginlogo2.png) no-repeat center;width:100%; height:71px; margin-top:75px;display:block;}
+
+.loginbox{width:692px; height:336px; background:url(../../img/logininfo.png) no-repeat;margin-top:30px;}
+.loginbox ul{margin-top:88px; margin-left:285px; padding:0;}
+.loginbox ul li{margin-bottom:25px;list-style: none;}
+.loginbox ul li label{color:#687f92; padding-left:25px;}
+.loginbox ul li label a{color:#687f92;}
+.loginbox ul li label a:hover{color:#3d96c9;}
+.loginbox ul li label input{margin-right:5px;}
+.loginuser{width:343px; height:48px; background:url(../../img/loginuser.png) no-repeat; border:none; line-height:48px; text-indent:40px; font-size:14px; }
+.loginpwd{width:343px; height:48px; background:url(../../img/loginpassword.png) no-repeat; border:none;line-height:48px; text-indent:40px; font-size:14px; color:#90a2bc;}
+.loginbtn{width:111px;height:35px; background:url(../../img/buttonbg.png) no-repeat; border:none;font-size:14px; color:#fff;cursor:pointer; line-height:30px;}
+.loginbtn2{width:111px;height:35px; background:url(../../img/buttonbg2.png) no-repeat; border:none;font-size:14px; color:#fff;cursor:pointer; line-height:30px;}
+.loginbtn:hover{background:url(../../img/buttonbg-hover.png) no-repeat;}
+.loginbtn2:hover{background:url(../../img/buttonbg-hover2.png) no-repeat;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

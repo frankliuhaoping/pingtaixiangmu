@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htcf.system.dao.PubAuthDao">
+	<!-- 基础方法 start -->
+	<select id="get" resultType="com.htcf.system.model.po.PubAuth"> <!-- 查询对象 -->
+		select t.*
+		from T_PUB_AUTH t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="count" resultType="int"> <!-- 查询数量 -->
+		select count(*)
+		from T_PUB_AUTH t
+		where 1=1
+		<include refid="common.where"></include>
+	</select>
+	
+	<select id="getSeq" resultType="java.lang.Long"> <!-- 获取序列 -->
+		select SEQ_PUB_AUTH.nextval from dual
+	</select>
+	
+	<insert id="add" useGeneratedKeys="true" keyProperty="id"> <!-- 新增 -->
+		insert into T_PUB_AUTH
+		<include refid="common.insert"></include>
+	</insert>
+
+	<update id="update"> <!-- 修改 -->
+		update T_PUB_AUTH set
+		<include refid="common.update"></include>
+	</update>
+	
+	<delete id="delete"> <!-- 删除 -->
+		delete from T_PUB_AUTH 
+		where SQID = #{0}
+	</delete>
+	
+	<delete id="batchDelete"> <!-- 批量删除 -->
+		delete from T_PUB_AUTH 
+		where SQID in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 基础方法 end -->
+	
+</mapper>

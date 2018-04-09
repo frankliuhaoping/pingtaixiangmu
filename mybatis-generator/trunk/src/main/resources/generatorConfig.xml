@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="D:\workspace-sts-3.6.3.SR1-test\mybatis-generator\src\main\resources\ojdbc14-10.2.0.4.0.jar" />
+
+	<context id="MySQLTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 是否取消注释 -->  
+            <property name="suppressAllComments" value="true"/>
+            <!-- 是否生成注释代时间戳--> 
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        
+        <!-- 生成的Java文件的编码 -->
+		<!-- +
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://139.129.96.254:3306/sanguo1"
+			userId="root"
+			password="xueis123!"> 
+		</jdbcConnection>
+		-->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@192.168.0.2:1521:cf110"
+			userId="demo"
+			password="demo">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.htcf.demo.model.po"
+			targetProject="e:\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mybatis.mapper"
+			targetProject="e:\java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 一般不需要生成
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.htcf.demo.dao" 
+			targetProject="e:\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator> -->
+
+		<!-- 修改tableName &  domainObjectName
+			generatedKey 用于绑定序列作为主键 column=主键字段名，type=pre代表执行insert之前先执行查序列的sql-->
+		<table tableName="DEMO_USER"
+			domainObjectName="DemoUser" 
+			enableCountByExample="false"
+			enableUpdateByExample="false" 
+			enableDeleteByExample="false"
+			enableSelectByExample="false" 
+			selectByExampleQueryId="false"
+			enableDeleteByPrimaryKey="true"
+			enableSelectByPrimaryKey="true"
+			>
+			<generatedKey column="id" type="pre" 
+			sqlStatement="select SEQ_DEMO_USER.nextval from dual"/>
+		</table>
+
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志输出级别 trace < debug < info < warn < error < fatal -->
+<configuration status="OFF">
+	<appenders>
+        <!--这个输出控制台的配置-->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %-5p [%t] %M() (%F:%L) - %m%n" />
+		</Console>
+	</appenders>
+	<loggers>
+		<!--  关键第三方API内部日志 -->
+		<logger name="org.springframework" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.apache.zookeeper" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.apache.shiro" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.alibaba.dubbo" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<!--  长峰框架API内部日志 -->
+		<logger name="com.htcf.frame" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<!--  本系统日志 -->
+		<logger name="com.htcf.template.web" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<root level="debug">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

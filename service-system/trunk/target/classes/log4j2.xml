@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志输出级别 trace < debug < info < warn < error < fatal -->
+<configuration status="OFF">
+	<appenders>
+		<!-- <RollingFile name="RollingFile" fileName="../logs/sanguologs/app.log"
+                     filePattern="../logs/sanguologs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d %-5p [%t] %M() (%F:%L) - %m%n" />
+            <SizeBasedTriggeringPolicy size="20MB"/>
+        </RollingFile>  -->
+        
+        <!--这个输出控制台的配置-->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %-5p [%t] %M() (%F:%L) - %m%n" />
+		</Console>
+	</appenders>
+	<loggers>
+		<!--  具体的包级别控制 -->
+		<logger name="org.springframework" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.quartz" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.apache.zookeeper" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.I0Itec.zkclient" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.alibaba" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="org.mybatis" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="org.apache.ibatis" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="log4jdbc.log4j2" level="info" additivity="false">
+			<MarkerFilter marker="LOG4JDBC_OTHER" onMatch="DENY" onMismatch="NEUTRAL"/>
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="org.dozer" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<logger name="net.sf.ehcache" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<!-- dozer依赖 -->
+		<logger name="org.apache.commons" level="error" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<!--  长峰框架API内部日志 -->
+		<logger name="com.htcf.frame" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<!--  本系统日志 -->
+		<logger name="com.htcf.system.init" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.htcf.system.service" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.htcf.system.restservice" level="trace" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		
+		<root level="info">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

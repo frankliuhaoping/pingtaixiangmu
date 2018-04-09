@@ -1,0 +1,170 @@
+# Add message keys here, and they will automatically be generated in building
+save = 保存
+submit = 提交
+cancel = 取消
+close = 关闭
+back = 返回
+clear = 清空
+reset = 重置
+previous = 上一步
+next = 下一步
+comment = 备注
+id = 唯一编号
+name = 名称
+newType = 新增类型
+editType = 编辑类型
+removeType = 删除类型
+new = 新增
+edit = 编辑
+remove = 删除
+refresh = 刷新
+view = 查看
+downLoad = 下载
+pleaseInputValue = 请输入关键字
+print = 打印
+selectOneRow = 选择一行
+checkOneOrMultiple = 勾选一行或多行
+checkOneOrMultiple2 = 勾选一个或多个
+doing = 处理中...
+loading = 加载中...
+operate = 操作
+continueAdd = 保存后继续新增
+addAndClose = 保存后关闭
+all = 所有
+pleaseSelect = ---请选择---
+requiredField = 必填
+requiredFieldAndUnique = 必填且唯一
+required = 表示必填
+pxdm = 排序代码
+cjrxm = 创建人姓名
+cjsj = 创建时间
+gxrxm = 更新人姓名
+gxsj = 更新时间
+export = 导出
+importing = 正导入数据...
+search = 搜索
+confirm = 确认
+confirmDeletePrompt = 您确认要删除选中的数据吗?
+determine = 确定
+startDate = 起始年月
+endDate = 中止年月
+enable = 启用
+disable = 禁用
+detail = 详情
+copy = 复制
+selectAll = 全选
+deselectAll = 反选
+chooseFile = 选择文件
+orderNumber = 顺序
+orization = 授权
+jssq = 角色授权
+
+sjbb = 数据版本
+# Message Source
+appName = 指挥系统基础平台
+appShortName = 公共平台
+copyRight = 航天长峰湖南分公司
+generic.message.contact.admin = 请联系系统管理员
+
+generic.message.requestArgs.error = 请求参数不正确
+generic.message.add.fail = 添加失败
+generic.message.add.success = 添加成功
+generic.message.add.fail2 = 添加{0}失败:{1}
+generic.message.add.success2 = 添加{0}成功
+
+generic.message.update.fail = 更新失败
+generic.message.update.success = 更新成功
+generic.message.update.fail2 = 更新{0}失败:{1}
+generic.message.update.success2 = 更新{0}成功
+
+generic.message.delete.fail = 删除失败
+generic.message.delete.success = 删除成功
+generic.message.delete.fail2 = 删除{0}失败:{1}
+generic.message.delete.success2 = 删除{0}成功
+generic.message.enable.fail = 启用{0}失败
+generic.message.enable.success = 启用{0}成功
+generic.message.disable.fail = 禁用{0}失败
+generic.message.disable.success = 禁用{0}成功
+
+generic.message.syn.fail = 同步缓存失败
+generic.message.syn.success = 同步缓存成功
+generic.message.syn.fail2 = 同步{0}缓存失败:{1}
+generic.message.syn.success2 = 同步{0}缓存成功
+
+generic.message.unrepeatable.warn = {0}已经不存在，不能添加或更新
+
+pwd.reset.success = 重置密码成功
+pwd.reset.fail = 重置密码失败
+
+logout = 退出
+loginForm.unsucessfulLogin = 您输入的用户名或密码不正确，请重试
+loginForm.title = 后台登录系统
+loginForm.userId = 登录名：
+loginForm.password = 密码：
+loginForm.rememberUser = 记住用户名
+loginForm.forgetPwd = 忘记密码？
+loginForm.forgetPwdDlg.title = 密码重置
+loginForm.forgetPwdDlg.btn = 关闭
+loginFooter.aboutUs = 关于我们
+loginFooter.contactUs 联系我们
+
+accessDeny.title = 访问受限
+accessDeny.info = 访问受限！
+accessDeny.backToLast = 返回
+accessDeny.sessionExpired = 会话过期
+accessDeny.thisSessionExpired = 会话已经过期!
+framework.loginAgain = 重新登录
+
+error.403 = 访问受限！
+error.404 = 资源部存在！
+error.406 = 请求不接受！
+error.500 = 系统错误
+
+noPrivilege.title = 访问受限
+noPrivilege.content = 您的账号还没有分配权限，请联系系统管理员
+
+USER = 系统用户
+ROLE = 系统角色
+PASSWORD = 密码
+ROOT = <根节点>
+PROFILE = 基本信息
+
+starttime = 开始时间
+endtime = 结束时间
+
+#login
+login.pleaseLogin = 请登录
+login.username = 用户名
+login.password = 密码
+login.rememberMe = 记住用户名
+login.forgetPassword = 忘记密码
+login.login = 登 录
+
+#index
+index.expandCollapse = 收缩/展开左侧菜单
+index.closeOperate = 关闭操作
+index.positionCurrentTab = 定为当前选项卡
+index.closeAllTabs = 关闭全部选项卡
+index.closeOtherTabs = 关闭其他选项卡
+
+##########################################
+# 其他系统如果需要修改密码和切换系统功能需要复制到对应的配置文件中
+index.changePassword = 修改密码
+index.changeSystem = 切换系统
+password.userId = 登录名
+password.oldPwd = 旧密码
+password.newPwd = 新密码
+password.newPwdConfirm = 确认新密码
+##########################################
+
+# 当默认用户进入首页时给出提示，其他系统需要统一加上
+index.noRes = 该账号没有分配任何资源，请联系系统管理员！
+##########################################
+
+#pubApp
+pubApp.list = 我的应用列表
+pubApp.yyid = 应用ID
+pubApp.yymc = 应用名称
+pubApp.yyaqm = 应用安全码
+pubApp.yydm = 应用代码
+pubApp.yyzt = 应用状态

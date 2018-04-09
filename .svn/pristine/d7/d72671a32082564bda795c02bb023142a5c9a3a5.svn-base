@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="service-zbyq" />
+
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+    <!-- <dubbo:registry protocol="zookeeper" address="192.168.0.84:2181" /> --><!-- 暂时写成本地测试 -->
+    <!-- <dubbo:registry address="N/A" />直连 -->
+	<!-- 用dubbo协议在20818端口暴露服务，本地测试时部署多个服务需要修改 -->
+	<dubbo:protocol  name="dubbo" port="20820" />
+
+	<dubbo:provider timeout="10000" threadpool="fixed" threads="100" accepts="1000" />
+	
+</beans>

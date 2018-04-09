@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 将数据源映射到sqlSessionFactory中-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="shardingDataSource" />
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:mybatis/mapper/*.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+	
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:mybatis/mapper/*.xml</value>
+			</array>
+		</property>
+		<property name="typeAliasesPackage" value="com.htcf.demo.model.po" />
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 
+					<property name="properties">
+						<value>
+							dialect=mysql
+							reasonable=true
+							supportMethodsArguments=true
+							params=count=countSql
+							autoRuntimeDialect=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+ -->
+	<!-- SqlSession模板类实例 -->
+	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	
+	<!--======= 事务配置 Begin ================= -->
+	<!-- 事务管理器（由Spring管理MyBatis的事务） -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 关联数据源 -->
+		<property name="dataSource" ref="shardingDataSource"></property>
+	</bean>
+	<!-- 注解事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!--======= 事务配置 End =================== -->
+	
+	<!-- 
+	<bean id="demoCountryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.htcf.demo.dao.DemoCountryDao"  />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"  />
+    </bean> -->
+
+</beans>
